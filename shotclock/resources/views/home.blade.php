@@ -10,7 +10,7 @@
         <div class="panel-body">
         
 
-        <table class="table">
+        <table class="table" id="tablersky">
           <thead>
             <th>Name</th>
             <th>Drinks</th>
@@ -25,11 +25,11 @@
               <td>4.3</td>
               <td>0.03</td>
               <td><?php echo(new DateTime())->format('Y-m-d H:i:s') ?></td>
-              <td><button>+</button></td>
+              <td><button><i class="fa fa-plus" aria-hidden="true"></i></button></td>
             </tr>
           </tbody>
         </table>
-        <input type="text" name="new-name"><button>add person</button>
+        <input type="text" name="new-name" id="person-name"><button id="new-person">add person</button>
           <!-- @if (session('status'))
             <div class="alert alert-success">
               {{ session('status') }}
