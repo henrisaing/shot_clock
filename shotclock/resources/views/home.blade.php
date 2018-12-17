@@ -25,7 +25,7 @@
               <td>4.3</td>
               <td>0.03</td>
               <td><?php echo(new DateTime())->format('Y-m-d H:i:s') ?></td>
-              <td><button><i class="fa fa-plus" aria-hidden="true"></i></button></td>
+              <td><button>+</button></td>
             </tr>
           </tbody>
         </table>
