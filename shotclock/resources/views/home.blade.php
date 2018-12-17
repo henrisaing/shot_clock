@@ -14,6 +14,7 @@
           <thead>
             <th>Name</th>
             <th>Drinks</th>
+            <th>Drinks in System</th>
             <th>BAL est</th>
             <th>?last drink?</th>
             <th>Add Drink</th>
@@ -22,6 +23,7 @@
           <tbody>
             <tr>
               <td>bob</td>
+              <td>4.3</td>
               <td>4.3</td>
               <td>0.03</td>
               <td><?php echo(new DateTime())->format('Y-m-d H:i:s') ?></td>
