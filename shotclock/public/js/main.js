@@ -29,7 +29,7 @@ $( '#tablersky tbody' ).on('mouseover mouseout', 'td',
   );
 
 // adds new persons name, adds 1 drink + timestamp, resets name field
-$('#new-person').click(function(){
+$('.new-person').click(function(){
   counter++;
   var name = $('#person-name').val();
 
@@ -41,7 +41,7 @@ $('#new-person').click(function(){
     // +'<td> '+(new Date()).getTime()+' </td>'
     +'<td class=time id=time-'+counter+'> '+(new Date()).toLocaleTimeString()+' </td>'
     // +'<td> '+Date.now().getHours()+' </td>'
-    +'<td class=add id=add-'+counter+'> <button>+</button> </td>'
+    +'<td class=add id=add-'+counter+'> <button><i class="fas fa-plus"></i></button> </td>'
     +' </tr>');
 
   $('#person-name').val('');
@@ -70,24 +70,20 @@ function start(){
 
 function updateDIS(){
   $('.app-row').each(function(){
-    // console.log(this);
     var row = $(this).attr('id').split('-')[1];
-    // console.log(row);
 
     var dis = $('#dis-'+row).text();
-    console.log(dis);
-    // $('#dis-'+row).text('96');
+
+
     // if negative
     if(parseFloat(dis) < 0){
-      $('dis-'+row).text('0');
-      // console.log('neg');
+      $('#dis-'+row).text('0');
     }
 
     // if positive
+    //0.0014 for 1dr/hr , others for testing
     if(parseFloat(dis) > 0){
-      // $('#dis-'+row).text('69');
       $('#dis-'+row).text((parseFloat($('#dis-'+row).text(), 10) - 0.0014).toFixed(4));
-      console.log('positive');
     }
   });
 }
