@@ -87,14 +87,19 @@ function updateDIS(){
     }
   });
 }
-// function startTime() {
-//     var today = new Date();
-//     var h = today.getHours();
-//     var m = today.getMinutes();
-//     var s = today.getSeconds();
-//     m = checkTime(m);
-//     s = checkTime(s);
-//     // $('div.clock').html(h + ":" + m + ":" + s);
-//     $('div.clock').html(today);
-//     var t = setTimeout(startTime, 500);
-// }
+
+// BAC CALC
+function calculateBAC(row){
+  // formula
+  // (0.806 * drinks * 1.2) / (bodyWaterK * weight)
+  //avg male = 80kg, female = 76kg
+  //bodyWater k male = 0.58, female = 0.49
+  var bac;
+
+  // ASSUMING MALE JUST FOR TESTING
+  var drinks = $('#dis-'+row).text();
+  var bodyWater = 0.58;
+  var weight = 80;
+
+  return bac;
+}
