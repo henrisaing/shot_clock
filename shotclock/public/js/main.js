@@ -2,26 +2,8 @@ var counter = 0;
 
 $(document).ready(function(){
   start();
-
-  
-
-  // $('#new-person').click(function(){
-  //   counter++;
-  //   var name = $('#person-name').val();
-
-  //   $('#tablersky tbody:last-child').append('<tr>'
-  //     +'<td> '+name+' </td>'
-  //     +' </tr>');
-  // });
 });
 
-// $( "td" ).hover(
-//     function(){
-//       $(this).addClass("highlight");
-//     },function(){
-//       $(this).removeClass("highlight");
-//     }
-//   );
 $( '#tablersky tbody' ).on('mouseover mouseout', 'td',
     function(){
       $(this).toggleClass("highlight");
@@ -37,7 +19,7 @@ $('.new-person').click(function(){
     +'<td class=name id=name-'+counter+'> '+name+' </td>'
     +'<td class=drinks id=drinks-'+counter+'> 1 </td>'
     +'<td class=dis id=dis-'+counter+'> 1 </td>'
-    +'<td class=bal id=bal-'+counter+'> '+0.003+' </td>'
+    +'<td class=bac id=bac-'+counter+'> '+0.000+' </td>'
     // +'<td> '+(new Date()).getTime()+' </td>'
     +'<td class=time id=time-'+counter+'> '+(new Date()).toLocaleTimeString()+' </td>'
     // +'<td> '+Date.now().getHours()+' </td>'
@@ -60,35 +42,55 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
 
     //update last drink timestamp
     $('#time-'+row).text((new Date()).toLocaleTimeString());
+
+    // updates BAC
+    $('#bac-'+row).text(calculateBAC(row));
 });
 
 function start(){
   // console.log((new Date()).toLocaleTimeString());
-  updateDIS();
+  updateRows();
   setTimeout(start, 5000);
 }
 
-function updateDIS(){
+
+function updateRows(){
   $('.app-row').each(function(){
     var row = $(this).attr('id').split('-')[1];
 
     var dis = $('#dis-'+row).text();
 
 
+    // double IF BLOCK depreciates Drinks in System
+    // and sets to 0 if negative
     // if negative
     if(parseFloat(dis) < 0){
       $('#dis-'+row).text('0');
     }
-
     // if positive
     //0.0014 for 1dr/hr , others for testing
     if(parseFloat(dis) > 0){
       $('#dis-'+row).text((parseFloat($('#dis-'+row).text(), 10) - 0.0014).toFixed(4));
     }
+
+    // calculates BAC
+    $('#bac-'+row).text(calculateBAC(row));
+
+    // colors rows according to BAC
+    if(calculateBAC(row) > 0.06){
+      $(this).removeClass('yellow green').addClass('red');
+    } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
+      $(this).removeClass('red green').addClass('yellow');
+    } else {
+      $(this).removeClass('yellow red').addClass('green');
+    }
+
   });
 }
 
 // BAC CALC
+// accepts row
+// returns bac #
 function calculateBAC(row){
   // formula
   // (0.806 * drinks * 1.2) / (bodyWaterK * weight)
@@ -100,6 +102,8 @@ function calculateBAC(row){
   var drinks = $('#dis-'+row).text();
   var bodyWater = 0.58;
   var weight = 80;
+
+  bac = ((0.806 * parseFloat(drinks) * 1.2)/(bodyWater * weight)).toFixed(4);
 
   return bac;
 }

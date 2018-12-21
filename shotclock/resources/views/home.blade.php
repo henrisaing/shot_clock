@@ -15,7 +15,7 @@
             <th>Name</th>
             <th>Drinks</th>
             <th>Drinks in System</th>
-            <th>BAL est</th>
+            <th>BAC est</th>
             <th>Last Drink</th>
             <th>Add Drink</th>
           </thead>
