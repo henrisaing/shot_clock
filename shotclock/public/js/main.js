@@ -20,9 +20,7 @@ $('.new-person').click(function(){
     +'<td class=drinks id=drinks-'+counter+'> 1 </td>'
     +'<td class=dis id=dis-'+counter+'> 1 </td>'
     +'<td class=bac id=bac-'+counter+'> '+0.000+' </td>'
-    // +'<td> '+(new Date()).getTime()+' </td>'
     +'<td class=time id=time-'+counter+'> '+(new Date()).toLocaleTimeString()+' </td>'
-    // +'<td> '+Date.now().getHours()+' </td>'
     +'<td class=add id=add-'+counter+'> <button><i class="fas fa-plus"></i></button> </td>'
     +' </tr>');
 
@@ -37,7 +35,7 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
     // console.log(row);
 
     // equivilant to i++, ugly
-    $('#drinks-'+row).text((parseFloat($('#drinks-'+row).text(), 10) + 1).toFixed(4));
+    $('#drinks-'+row).text(parseFloat($('#drinks-'+row).text(), 10) + 1);
     $('#dis-'+row).text((parseFloat($('#dis-'+row).text(), 10) + 1).toFixed(4));
 
     //update last drink timestamp
@@ -45,6 +43,8 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
 
     // updates BAC
     $('#bac-'+row).text(calculateBAC(row));
+
+    colorRow(row);
 });
 
 function start(){
@@ -76,20 +76,12 @@ function updateRows(){
     // calculates BAC
     $('#bac-'+row).text(calculateBAC(row));
 
-    // // colors rows according to BAC
-    // if(calculateBAC(row) > 0.06){
-    //   $(this).removeClass('yellow green').addClass('red');
-    // } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
-    //   $(this).removeClass('red green').addClass('yellow');
-    // } else {
-    //   $(this).removeClass('yellow red').addClass('green');
-    // }
-
+    colorRow(row);
   });
 }
 
 // BAC CALC
-// accepts row
+// accepts row #
 // returns bac #
 function calculateBAC(row){
   // formula
@@ -108,13 +100,13 @@ function calculateBAC(row){
   return bac;
 }
 
+// colors rows according to BAC
 function colorRow(row){
-    // colors rows according to BAC
     if(calculateBAC(row) > 0.06){
-      $(this).removeClass('yellow green').addClass('red');
+      $('tr#row-'+row).removeClass('yellow green').addClass('red');
     } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
-      $(this).removeClass('red green').addClass('yellow');
+      $('tr#row-'+row).removeClass('red green').addClass('yellow');
     } else {
-      $(this).removeClass('yellow red').addClass('green');
+      $('tr#row-'+row).removeClass('yellow red').addClass('green');
     }
 }
