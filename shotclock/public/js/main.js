@@ -37,8 +37,8 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
     // console.log(row);
 
     // equivilant to i++, ugly
-    $('#drinks-'+row).text(parseFloat($('#drinks-'+row).text(), 10) + 1);
-    $('#dis-'+row).text(parseFloat($('#dis-'+row).text(), 10) + 1);
+    $('#drinks-'+row).text((parseFloat($('#drinks-'+row).text(), 10) + 1).toFixed(4));
+    $('#dis-'+row).text((parseFloat($('#dis-'+row).text(), 10) + 1).toFixed(4));
 
     //update last drink timestamp
     $('#time-'+row).text((new Date()).toLocaleTimeString());
@@ -76,14 +76,14 @@ function updateRows(){
     // calculates BAC
     $('#bac-'+row).text(calculateBAC(row));
 
-    // colors rows according to BAC
-    if(calculateBAC(row) > 0.06){
-      $(this).removeClass('yellow green').addClass('red');
-    } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
-      $(this).removeClass('red green').addClass('yellow');
-    } else {
-      $(this).removeClass('yellow red').addClass('green');
-    }
+    // // colors rows according to BAC
+    // if(calculateBAC(row) > 0.06){
+    //   $(this).removeClass('yellow green').addClass('red');
+    // } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
+    //   $(this).removeClass('red green').addClass('yellow');
+    // } else {
+    //   $(this).removeClass('yellow red').addClass('green');
+    // }
 
   });
 }
@@ -106,4 +106,15 @@ function calculateBAC(row){
   bac = ((0.806 * parseFloat(drinks) * 1.2)/(bodyWater * weight)).toFixed(4);
 
   return bac;
+}
+
+function colorRow(row){
+    // colors rows according to BAC
+    if(calculateBAC(row) > 0.06){
+      $(this).removeClass('yellow green').addClass('red');
+    } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
+      $(this).removeClass('red green').addClass('yellow');
+    } else {
+      $(this).removeClass('yellow red').addClass('green');
+    }
 }
