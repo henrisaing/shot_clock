@@ -14,8 +14,9 @@
         <style>
             html, body {
                 background-image: url({{asset('img/bar-316626_640.jpg')}});
-                background-size:cover;
-                background-color: #fff;
+                background-size:contain;
+                background-repeat: no-repeat;
+                background-color: #000;
                 color: #EEE;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
