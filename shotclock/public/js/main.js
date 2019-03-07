@@ -15,8 +15,11 @@ $('.new-person').click(function(){
   counter++;
   var name = $('#person-name').val();
 
+  var gender = $(this).attr('id');
+  console.log(gender);
+
   $('#tablersky tbody:last-child').append('<tr class=app-row id=row-'+counter+'>'
-    +'<td class=name id=name-'+counter+'> '+name+' </td>'
+    +'<td class=name id=name-'+counter+' gender='+gender+'> '+name+' </td>'
     +'<td class=drinks id=drinks-'+counter+'> 1 </td>'
     +'<td class=dis id=dis-'+counter+'> 1 </td>'
     +'<td class=bac id=bac-'+counter+'> '+0.000+' </td>'
@@ -92,8 +95,25 @@ function calculateBAC(row){
 
   // ASSUMING MALE JUST FOR TESTING
   var drinks = $('#dis-'+row).text();
-  var bodyWater = 0.58;
-  var weight = 80;
+  var gender = $('#name-'+row).attr('gender');
+  var bodyWater;
+  var weight;
+
+  switch(gender){
+    case 'female':
+      bodyWater = 0.49;
+      weight = 76;
+      break;
+      
+    case 'male':
+      bodyWater = 0.58;
+      weight = 80;
+      break;
+
+    default:
+      bodyWater = 0.58;
+      weight = 80;
+  }
 
   bac = ((0.806 * parseFloat(drinks) * 1.2)/(bodyWater * weight)).toFixed(4);
 
@@ -101,10 +121,11 @@ function calculateBAC(row){
 }
 
 // colors rows according to BAC
+//returns void
 function colorRow(row){
-    if(calculateBAC(row) > 0.06){
+    if(calculateBAC(row) >= 0.06){
       $('tr#row-'+row).removeClass('yellow green').addClass('red');
-    } else if (calculateBAC(row) > 0.03 && calculateBAC(row) < 0.06){
+    } else if (calculateBAC(row) >= 0.03 && calculateBAC(row) < 0.06){
       $('tr#row-'+row).removeClass('red green').addClass('yellow');
     } else {
       $('tr#row-'+row).removeClass('yellow red').addClass('green');
