@@ -18,14 +18,25 @@ $('.new-person').click(function(){
   var gender = $(this).attr('id');
   console.log(gender);
 
-  $('#tablersky tbody:last-child').append('<tr class=app-row id=row-'+counter+'>'
+  // $('#tablersky tbody:last-child').append('<tr class=app-row id=row-'+counter+'>'
+  //   +'<td class=name id=name-'+counter+' gender='+gender+'> '+name+' </td>'
+  //   +'<td class=drinks id=drinks-'+counter+'> 1 </td>'
+  //   +'<td class=dis id=dis-'+counter+'> 1 </td>'
+  //   +'<td class=bac id=bac-'+counter+'> '+0.000+' </td>'
+  //   +'<td class=time id=time-'+counter+'> '+(new Date()).toLocaleTimeString()+' </td>'
+  //   +'<td class=add id=add-'+counter+'> <button><i class="fas fa-plus"></i></button> </td>'
+  //   +'<td class=minus id=minus-'+counter+'> <button><i class="fas fa-minus"></i></button> </td>'
+  //   +' </tr>');
+
+  $('<tr class=app-row id=row-'+counter+'>'
     +'<td class=name id=name-'+counter+' gender='+gender+'> '+name+' </td>'
     +'<td class=drinks id=drinks-'+counter+'> 1 </td>'
     +'<td class=dis id=dis-'+counter+'> 1 </td>'
     +'<td class=bac id=bac-'+counter+'> '+0.000+' </td>'
     +'<td class=time id=time-'+counter+'> '+(new Date()).toLocaleTimeString()+' </td>'
     +'<td class=add id=add-'+counter+'> <button><i class="fas fa-plus"></i></button> </td>'
-    +' </tr>');
+    +'<td class=minus id=minus-'+counter+'> <button><i class="fas fa-minus"></i></button> </td>'
+    +' </tr>').prependTo('#tablersky tbody:last-child');
 
   $('#person-name').val('');
 });
@@ -49,6 +60,25 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
 
     colorRow(row);
 });
+// remove drink button click
+//REFACTOR ONTO ADD DRINK BUTTON LATER
+$('#tablersky tbody').on('click', 'td.minus button', function(){
+
+    // gets current row that button was pressed in
+    var row = $(this).parent().attr('id').split("-")[1];
+    // console.log(row);
+
+    // equivilant to i++, ugly
+    $('#drinks-'+row).text(parseFloat($('#drinks-'+row).text(), 10) - 1);
+    $('#dis-'+row).text((parseFloat($('#dis-'+row).text(), 10) - 1).toFixed(4));
+
+    // updates BAC
+    $('#bac-'+row).text(calculateBAC(row));
+
+    colorRow(row);
+});
+
+
 
 function start(){
   // console.log((new Date()).toLocaleTimeString());

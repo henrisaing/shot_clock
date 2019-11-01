@@ -17,7 +17,8 @@
             <th>Drinks in System</th>
             <th>BAC est</th>
             <th>Last Drink</th>
-            <th>Add Drink</th>
+            <th>+Drink</th>
+            <th>-Drink</th>
           </thead>
 
           <tbody>
