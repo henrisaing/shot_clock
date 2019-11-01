@@ -36,6 +36,7 @@ $('.new-person').click(function(){
     +'<td class=time id=time-'+counter+'> '+(new Date()).toLocaleTimeString()+' </td>'
     +'<td class=add id=add-'+counter+'> <button><i class="fas fa-plus"></i></button> </td>'
     +'<td class=minus id=minus-'+counter+'> <button><i class="fas fa-minus"></i></button> </td>'
+    +'<td class=inactive id=inactive-'+counter+'> <button>inactive</button> </td>'
     +' </tr>').prependTo('#tablersky tbody:last-child');
 
   $('#person-name').val('');
@@ -60,6 +61,7 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
 
     colorRow(row);
 });
+
 // remove drink button click
 //REFACTOR ONTO ADD DRINK BUTTON LATER
 $('#tablersky tbody').on('click', 'td.minus button', function(){
@@ -68,7 +70,7 @@ $('#tablersky tbody').on('click', 'td.minus button', function(){
     var row = $(this).parent().attr('id').split("-")[1];
     // console.log(row);
 
-    // equivilant to i++, ugly
+    // equivilant to i--, ugly
     $('#drinks-'+row).text(parseFloat($('#drinks-'+row).text(), 10) - 1);
     $('#dis-'+row).text((parseFloat($('#dis-'+row).text(), 10) - 1).toFixed(4));
 
@@ -76,6 +78,18 @@ $('#tablersky tbody').on('click', 'td.minus button', function(){
     $('#bac-'+row).text(calculateBAC(row));
 
     colorRow(row);
+});
+
+// set person to inactive (just moves them to bottom of table)
+//REFACTOR ONTO ADD DRINK BUTTON LATER ?maybe?
+$('#tablersky tbody').on('click', 'td.inactive button', function(){
+
+    // gets current row that button was pressed in
+    var row = $(this).parent().attr('id').split("-")[1];
+    // console.log("inactive  append"+row);
+
+    //moves row to bottom
+    $('#tablersky tbody:last-child').append($("#row-"+row));
 });
 
 
