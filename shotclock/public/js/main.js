@@ -16,7 +16,7 @@ $('.new-person').click(function(){
   var name = $('#person-name').val();
 
   var gender = $(this).attr('id');
-  console.log(gender);
+  // console.log(gender);
 
   // $('#tablersky tbody:last-child').append('<tr class=app-row id=row-'+counter+'>'
   //   +'<td class=name id=name-'+counter+' gender='+gender+'> '+name+' </td>'
@@ -42,7 +42,7 @@ $('.new-person').click(function(){
   $('#person-name').val('');
 });
 
-// add drink button click
+// ADD DRINK button click
 $('#tablersky tbody').on('click', 'td.add button', function(){
 
     // gets current row that button was pressed in
@@ -62,7 +62,7 @@ $('#tablersky tbody').on('click', 'td.add button', function(){
     colorRow(row);
 });
 
-// remove drink button click
+// REMOVE DRINK button click
 //REFACTOR ONTO ADD DRINK BUTTON LATER
 $('#tablersky tbody').on('click', 'td.minus button', function(){
 
@@ -80,7 +80,7 @@ $('#tablersky tbody').on('click', 'td.minus button', function(){
     colorRow(row);
 });
 
-// set person to inactive (just moves them to bottom of table)
+// set person to INACTIVE (just moves them to bottom of table)
 //REFACTOR ONTO ADD DRINK BUTTON LATER ?maybe?
 $('#tablersky tbody').on('click', 'td.inactive button', function(){
 
@@ -88,8 +88,18 @@ $('#tablersky tbody').on('click', 'td.inactive button', function(){
     var row = $(this).parent().attr('id').split("-")[1];
     // console.log("inactive  append"+row);
 
-    //moves row to bottom
-    $('#tablersky tbody:last-child').append($("#row-"+row));
+    //gets button text
+    var button = $("#inactive-"+row+" button");
+
+    //if button is "inactive" change to "active", move to bottom
+    //else change to "inactive", move to top 
+    if( button.text() == "inactive" ){
+      button.text("active");
+      $('#tablersky tbody:last-child').append($("#row-"+row));
+    }else{
+      button.text("inactive");
+      $("#row-"+row).prependTo($('#tablersky tbody'));
+    }
 });
 
 
@@ -165,7 +175,7 @@ function calculateBAC(row){
 }
 
 // colors rows according to BAC
-//returns void
+// returns nothing
 function colorRow(row){
     if(calculateBAC(row) >= 0.06){
       $('tr#row-'+row).removeClass('yellow green').addClass('red');
