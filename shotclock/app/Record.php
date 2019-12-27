@@ -11,7 +11,7 @@ class Record extends Model
     return $this->belongsTo(User::class);
   }
 
-  public static function person(){
+  public static function persons(){
     return $this->hasMany(Person::class);
   }
 }
