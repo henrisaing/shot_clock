@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Record extends Model
 {
-    //
+  protected $fillable = [
+    'name'
+  ];
+
   public static function user(){
     return $this->belongsTo(User::class);
   }
